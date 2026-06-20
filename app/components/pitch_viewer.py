@@ -59,15 +59,20 @@ def _draw_players(pitch, ax, px, py, teammate, actor) -> None:
     pitch.scatter(
         atk, dfn, ax=ax, c=ATTACKER, s=200, edgecolors="#5c2f24", linewidths=1.1, zorder=4
     )
-    pitch.scatter(
-        dx, dy, ax=ax, c=DEFENDER, s=190, edgecolors="#5a6470", linewidths=1.1, zorder=4
-    )
+    pitch.scatter(dx, dy, ax=ax, c=DEFENDER, s=190, edgecolors="#5a6470", linewidths=1.1, zorder=4)
     if actor.any():
         ax_, ay_ = px[actor], py[actor]
         _glow(pitch, ax, ax_, ay_, "#fff6e8", 900, 0.28, zorder=4)
         pitch.scatter(
-            ax_, ay_, ax=ax, c=CARRIER, s=360, marker="*",
-            edgecolors="#26352b", linewidths=0.8, zorder=5,
+            ax_,
+            ay_,
+            ax=ax,
+            c=CARRIER,
+            s=360,
+            marker="*",
+            edgecolors="#26352b",
+            linewidths=0.8,
+            zorder=5,
         )
 
 
@@ -271,13 +276,19 @@ def counterfactual_figure(row, cf: dict, figsize=(9.6, 6.7)):
             zorder=7,
         )
         pitch.scatter(
-            [bx], [by], ax=ax, s=260, marker="*", c="#f4f4f5", edgecolors="#111",
-            linewidths=0.6, zorder=8,
+            [bx],
+            [by],
+            ax=ax,
+            s=260,
+            marker="*",
+            c="#f4f4f5",
+            edgecolors="#111",
+            linewidths=0.6,
+            zorder=8,
         )
     _direction_cue(ax)
     ax.set_title(
-        f"Where should the most advanced attacker move?  "
-        f"({cf['base']:.0%} → {cf['best']:.0%})",
+        f"Where should the most advanced attacker move?  ({cf['base']:.0%} → {cf['best']:.0%})",
         color=TEXT,
         fontsize=10.5,
         pad=10,
@@ -303,20 +314,36 @@ def attention_figure(row, importance, figsize=(9.6, 6.7)):
     sizes = 90 + 1400 * (imp / imp.max())  # marker area scaled to importance
     for mask, color, edge in ((teammate, ATTACKER, "#04261d"), (~teammate, DEFENDER, "#1f2025")):
         pitch.scatter(
-            px[mask], py[mask], ax=ax, s=sizes[mask], c=color, edgecolors=edge,
-            linewidths=1.0, zorder=4, alpha=0.9,
+            px[mask],
+            py[mask],
+            ax=ax,
+            s=sizes[mask],
+            c=color,
+            edgecolors=edge,
+            linewidths=1.0,
+            zorder=4,
+            alpha=0.9,
         )
     if actor.any():
         pitch.scatter(px[actor], py[actor], ax=ax, c=CARRIER, s=320, marker="*", zorder=5)
     top = int(np.argmax(imp))
     pitch.scatter(
-        [px[top]], [py[top]], ax=ax, s=float(sizes[top]) + 220, facecolors="none",
-        edgecolors="#f4f4f5", linewidths=1.8, zorder=6,
+        [px[top]],
+        [py[top]],
+        ax=ax,
+        s=float(sizes[top]) + 220,
+        facecolors="none",
+        edgecolors="#f4f4f5",
+        linewidths=1.8,
+        zorder=6,
     )
     _direction_cue(ax)
     ax.set_title(
         "What the model focused on (attention)  ·  bigger = more attended",
-        color=TEXT, fontsize=10.5, pad=10, loc="left",
+        color=TEXT,
+        fontsize=10.5,
+        pad=10,
+        loc="left",
     )
     return fig
 

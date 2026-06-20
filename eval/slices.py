@@ -55,8 +55,7 @@ def slice_masks(graphs: list, poss: pd.DataFrame) -> dict[str, np.ndarray]:
     # Positional-zone slices: the ball-carrier's role (the one known position). Answers
     # "does the model read midfield build-up differently from final-third forwards?"
     role_lookup = {
-        (int(r.match_id), int(r.possession)): r.actor_role
-        for r in poss.itertuples(index=False)
+        (int(r.match_id), int(r.possession)): r.actor_role for r in poss.itertuples(index=False)
     }
     roles = [role_lookup.get((int(g.match_id), int(g.possession))) for g in graphs]
     masks = {

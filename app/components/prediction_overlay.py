@@ -17,7 +17,7 @@ from matplotlib.patches import FancyArrowPatch
 # Locked palette — tuned for contrast on the rich-green pitch (warm "golden-hour" theme).
 ATTACKER = "#e07a5f"  # warm coral — pops on green
 DEFENDER = "#cfd6dd"  # light slate — clear, cool contrast
-CARRIER = "#fff6e8"   # cream-white (the player on the ball)
+CARRIER = "#fff6e8"  # cream-white (the player on the ball)
 ACTUAL = "#fff6e8"
 RING = "#f2b134"  # amber receiver rings
 MODEL_COLORS = {"gat": "#4f7fa3", "tfm": "#cf6a3c"}  # steel-blue GAT, terracotta transformer

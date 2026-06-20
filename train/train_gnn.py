@@ -50,9 +50,10 @@ def evaluate(model, loader: DataLoader, device: str) -> dict[str, float]:
     recv_hits3: list[np.ndarray] = []
     press_hits1: list[np.ndarray] = []
     press_hits3: list[np.ndarray] = []
-    aux: dict[str, list[np.ndarray]] = {k: [] for k in (
-        "defs_p", "defs_y", "dxt_p", "dxt_y", "dl_p", "dl_y", "dl_m", "xp_p", "xp_y"
-    )}
+    aux: dict[str, list[np.ndarray]] = {
+        k: []
+        for k in ("defs_p", "defs_y", "dxt_p", "dxt_y", "dl_p", "dl_y", "dl_m", "xp_p", "xp_y")
+    }
     for batch in loader:
         batch = batch.to(device)
         out = model(batch)

@@ -55,12 +55,19 @@ def build_run_examples(dataset, sample_every: int = 10) -> pd.DataFrame:
             ox, oy = past[p].x * SRC_LEN, past[p].y * SRC_WID
             vx, vy = (cx - ox) / VEL_WINDOW_S, (cy - oy) / VEL_WINDOW_S  # m/s
             to_goal = OPP_GOAL - np.array([cx, cy])
-            rows.append({
-                "frame": i, "x": cx, "y": cy, "vx": vx, "vy": vy,
-                "dist_goal": float(np.hypot(*to_goal)),
-                "angle_goal": float(np.arctan2(*to_goal[::-1])),
-                "dx": fx - cx, "dy": fy - cy,
-            })
+            rows.append(
+                {
+                    "frame": i,
+                    "x": cx,
+                    "y": cy,
+                    "vx": vx,
+                    "vy": vy,
+                    "dist_goal": float(np.hypot(*to_goal)),
+                    "angle_goal": float(np.arctan2(*to_goal[::-1])),
+                    "dx": fx - cx,
+                    "dy": fy - cy,
+                }
+            )
     return pd.DataFrame(rows)
 
 
@@ -75,7 +82,8 @@ def evaluate_runs(df: pd.DataFrame) -> dict[str, float]:
     model = Ridge(alpha=1.0).fit(tr[feats], tr[["dx", "dy"]])
     learned = _rmse(y_te, model.predict(te[feats]))
     return {
-        "n_train": len(tr), "n_test": len(te),
+        "n_train": len(tr),
+        "n_test": len(te),
         "nomove_rmse_m": round(nomove, 3),
         "constvel_rmse_m": round(constvel, 3),
         "learned_rmse_m": round(learned, 3),
@@ -116,8 +124,10 @@ def main() -> None:
     print(f"  learned (Ridge)         : {res['learned_rmse_m']} m")
     print(f"  [{res['n_train']} train / {res['n_test']} test examples]")
     gain = 100 * (res["nomove_rmse_m"] - res["learned_rmse_m"]) / res["nomove_rmse_m"]
-    print(f"\nLearned beats no-move by {gain:.0f}% -- run prediction is well-posed on tracking, "
-          "unlike sparse 360 where it barely cleared no-move.")
+    print(
+        f"\nLearned beats no-move by {gain:.0f}% -- run prediction is well-posed on tracking, "
+        "unlike sparse 360 where it barely cleared no-move."
+    )
 
 
 if __name__ == "__main__":
