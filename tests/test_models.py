@@ -209,8 +209,13 @@ def test_cv_bridge_frame_conversion():
 
     rng = np.random.default_rng(0)
     rows = [
-        {"role": "player", "team": i % 2, "pitch_x": float(rng.uniform(0, 105)),
-         "pitch_y": float(rng.uniform(0, 68)), "is_actor": i == 0}
+        {
+            "role": "player",
+            "team": i % 2,
+            "pitch_x": float(rng.uniform(0, 105)),
+            "pitch_y": float(rng.uniform(0, 68)),
+            "is_actor": i == 0,
+        }
         for i in range(12)
     ]
     rows.append({"role": "ball", "team": -1, "pitch_x": 52.0, "pitch_y": 34.0, "is_actor": False})

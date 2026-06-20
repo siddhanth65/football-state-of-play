@@ -256,9 +256,7 @@ def compute_xt_progression(
     return xt_value(end_x, end_y, grid) - xt_value(trigger_x, trigger_y, grid)
 
 
-def compute_def_stop(
-    events: pd.DataFrame, possession_team: object, trigger_time: float
-) -> bool:
+def compute_def_stop(events: pd.DataFrame, possession_team: object, trigger_time: float) -> bool:
     """Whether the defending team makes a ball-winning action within the horizon.
 
     The defensive mirror of :func:`compute_success`: TRUE if any opponent

@@ -75,8 +75,15 @@ def _match_teams() -> dict[int, set[str]]:
 def build_team_metrics(model: torch.nn.Module, graphs: list, poss: pd.DataFrame) -> pd.DataFrame:
     """Aggregate per-possession outputs into per-team attacking + defensive fingerprints."""
     out = possession_outputs(model, graphs)
-    keep = ["match_id", "possession", "possession_team", "def_stop", "success",
-            "from_counter", "offside_trigger_x"]
+    keep = [
+        "match_id",
+        "possession",
+        "possession_team",
+        "def_stop",
+        "success",
+        "from_counter",
+        "offside_trigger_x",
+    ]
     df = out.merge(poss[keep], on=["match_id", "possession"], how="left")
     teams = _match_teams()
     df["defender"] = [

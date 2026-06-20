@@ -78,8 +78,16 @@ def tracking_to_positions(dataset, sample_every: int = 25) -> pd.DataFrame:
             if d[j] <= ACTOR_MAX_DIST_M:
                 frame_rows[j]["is_actor"] = True
             frame_rows.append(
-                {"frame": i, "track_id": -1, "role": "ball", "team": -1,
-                 "pitch_x": bx, "pitch_y": by, "is_actor": False, "conf": 1.0}
+                {
+                    "frame": i,
+                    "track_id": -1,
+                    "role": "ball",
+                    "team": -1,
+                    "pitch_x": bx,
+                    "pitch_y": by,
+                    "is_actor": False,
+                    "conf": 1.0,
+                }
             )
         rows.extend(frame_rows)
     return pd.DataFrame(rows)
@@ -112,8 +120,11 @@ def team_fingerprints(pos: pd.DataFrame, model) -> pd.DataFrame:
             bx = float(ball.iloc[0]["pitch_x"] * PITCH_LENGTH / SRC_LEN) if len(ball) else 60.0
             by = float(ball.iloc[0]["pitch_y"] * PITCH_WIDTH / SRC_WID) if len(ball) else 40.0
             row = SimpleNamespace(
-                trigger_x=bx, trigger_y=by, play_pattern="Regular Play",
-                from_counter=False, trigger_time_s=600.0,
+                trigger_x=bx,
+                trigger_y=by,
+                play_pattern="Regular Play",
+                from_counter=False,
+                trigger_time_s=600.0,
             )
             out = model(build_data(frame, row))
             succ = float(torch.sigmoid(out["success"]))
@@ -122,21 +133,45 @@ def team_fingerprints(pos: pd.DataFrame, model) -> pd.DataFrame:
             loc = np.array(frame["location"].tolist())
             dmask = (~frame["teammate"].to_numpy()) & (~frame["keeper"].to_numpy())
             line = float(np.sort(loc[dmask, 0])[-2]) if int(dmask.sum()) >= 2 else np.nan
-            recs.append({"team": atk, "side": "atk", "success": succ,
-                         "dxt": float(out["dxt"]), "ent": float(-(rp.log() * rp).sum())})
+            recs.append(
+                {
+                    "team": atk,
+                    "side": "atk",
+                    "success": succ,
+                    "dxt": float(out["dxt"]),
+                    "ent": float(-(rp.log() * rp).sum()),
+                }
+            )
             if deff is not None:
-                recs.append({"team": deff, "side": "def", "success": succ,
-                             "presser": float(out["presser_probs"].max()),
-                             "xpass": float(xp.sum() / (xp > 0).sum().clamp_min(1)), "line": line})
+                recs.append(
+                    {
+                        "team": deff,
+                        "side": "def",
+                        "success": succ,
+                        "presser": float(out["presser_probs"].max()),
+                        "xpass": float(xp.sum() / (xp > 0).sum().clamp_min(1)),
+                        "line": line,
+                    }
+                )
     d = pd.DataFrame(recs)
     a, f = d[d.side == "atk"].groupby("team"), d[d.side == "def"].groupby("team")
-    att = pd.DataFrame({"n_attack": a.size(), "attack_success": a["success"].mean(),
-                        "attack_dxt": a["dxt"].mean(), "option_richness": a["ent"].mean()})
-    deff_t = pd.DataFrame({
-        "n_defend": f.size(), "solidity": 1 - f["success"].mean(),
-        "press_decisiveness": f["presser"].mean(), "lane_suppression": 1 - f["xpass"].mean(),
-        "line_height": f["line"].mean(),
-    })
+    att = pd.DataFrame(
+        {
+            "n_attack": a.size(),
+            "attack_success": a["success"].mean(),
+            "attack_dxt": a["dxt"].mean(),
+            "option_richness": a["ent"].mean(),
+        }
+    )
+    deff_t = pd.DataFrame(
+        {
+            "n_defend": f.size(),
+            "solidity": 1 - f["success"].mean(),
+            "press_decisiveness": f["presser"].mean(),
+            "lane_suppression": 1 - f["xpass"].mean(),
+            "line_height": f["line"].mean(),
+        }
+    )
     return att.join(deff_t, how="outer")
 
 
@@ -183,7 +218,8 @@ def main() -> None:
         if args.team_metrics:
             fp = team_fingerprints(pos, model).reset_index(names="team_id")
             labels = [
-                names[int(s)] if names[int(s)] not in ("Home", "Away")
+                names[int(s)]
+                if names[int(s)] not in ("Home", "Away")
                 else f"{args.provider}{mid}_{names[int(s)]}"
                 for s in fp["team_id"]
             ]
@@ -194,8 +230,10 @@ def main() -> None:
 
             df = run_clip(str(out))
             if not df.empty:
-                print(f"  GAT on {len(df)} frames | P(success) {df['success'].mean():.3f} "
-                      f"| DxT {df['dynamic_xt'].mean():.4f} | P(def) {df['p_defstop'].mean():.3f}")
+                print(
+                    f"  GAT on {len(df)} frames | P(success) {df['success'].mean():.3f} "
+                    f"| DxT {df['dynamic_xt'].mean():.4f} | P(def) {df['p_defstop'].mean():.3f}"
+                )
 
     if args.team_metrics and fingerprints:
         table = pd.concat(fingerprints, ignore_index=True).round(4)

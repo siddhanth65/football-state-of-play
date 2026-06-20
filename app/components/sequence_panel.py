@@ -52,8 +52,10 @@ def render(match_id: int, possession: int) -> None:
 
     # A compact superiority trace so the whole build-up reads at a glance.
     trace = pd.DataFrame(
-        {"frame": [f"t-{n - 1 - i}" if i < n - 1 else "trigger" for i in range(n)],
-         "ahead of ball": superiority}
+        {
+            "frame": [f"t-{n - 1 - i}" if i < n - 1 else "trigger" for i in range(n)],
+            "ahead of ball": superiority,
+        }
     ).set_index("frame")
     st.bar_chart(trace, height=160, color="#10b981")
 

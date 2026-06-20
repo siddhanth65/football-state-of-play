@@ -64,9 +64,7 @@ def perturbed(g: Data, key_idx: int, dx: float, dy: float) -> Data:
 
 
 @torch.no_grad()
-def success_surface(
-    model, g: Data, device: str = "cpu", dxs=GRID_DX, dys=GRID_DY
-) -> dict | None:
+def success_surface(model, g: Data, device: str = "cpu", dxs=GRID_DX, dys=GRID_DY) -> dict | None:
     """Return the P(success) surface as the key attacker is swept over the offset grid.
 
     Returns ``None`` if the graph has no eligible key attacker. The dict holds the

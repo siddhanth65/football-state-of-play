@@ -98,8 +98,11 @@ def run_clip(positions_path: str, ckpt: Path = CKPT) -> pd.DataFrame:
         bx = float(ball.iloc[0]["pitch_x"] * PITCH_LENGTH / SRC_LEN) if len(ball) else 60.0
         by = float(ball.iloc[0]["pitch_y"] * PITCH_WIDTH / SRC_WID) if len(ball) else 40.0
         row = SimpleNamespace(
-            trigger_x=bx, trigger_y=by, play_pattern="Regular Play",
-            from_counter=False, trigger_time_s=600.0,
+            trigger_x=bx,
+            trigger_y=by,
+            play_pattern="Regular Play",
+            from_counter=False,
+            trigger_time_s=600.0,
         )
         try:
             out = model(build_data(frame, row))
