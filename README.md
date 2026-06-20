@@ -15,9 +15,7 @@ the model represents the moment as a **graph of players** and predicts three thi
 
 The primary model is a **Graph Attention Network** (`torch_geometric`); a
 **transformer over player tokens** is the secondary model for comparison. See
-[CLAUDE.md](CLAUDE.md) for the full project contract,
-[docs/METHOD.md](docs/METHOD.md) for the method write-up, and
-[docs/RESEARCH_INTEGRATION.md](docs/RESEARCH_INTEGRATION.md) for the literature that
+[docs/REPORT.md](docs/REPORT.md) for the method, results, and the literature that
 informs the design.
 
 ---
@@ -89,11 +87,9 @@ eval/        metrics, ablations, case-study helpers
 app/         Streamlit dashboard
 notebooks/   01_eda ... 06_case_studies
 results/     csv tables, figures, checkpoints (gitignored)
-docs/        METHOD / DATA / REPORT / RESEARCH_INTEGRATION / meeting notes
+docs/        REPORT — method, results, limitations
 tests/       unit tests (pytest)
 ```
-
-See [CLAUDE.md §8](CLAUDE.md) for the annotated tree and conventions.
 
 ---
 
@@ -102,7 +98,7 @@ See [CLAUDE.md §8](CLAUDE.md) for the annotated tree and conventions.
 - Graphs are small (≤ 22 nodes / ≤ 231 edges per freeze-frame), so GNN training
   is light on VRAM. The 4 GB ceiling mostly constrains the **transformer** batch
   size — drop it below the default 32 if you hit OOM.
-- All seeds are fixed (`seed=42`); see [CLAUDE.md §6](CLAUDE.md).
+- All seeds are fixed (`seed=42`) for reproducibility.
 
 ## Development
 
