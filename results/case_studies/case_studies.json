@@ -1,0 +1,58 @@
+[
+  {
+    "match_id": 3869685,
+    "possession": 211,
+    "title": "World Cup 2022 final: the counter that came off",
+    "note": "Argentina vs France, 2022-12-18. The highest-threat successful counter-attack of the final. Watch the receiver rings: who the model expects the ball to find next.",
+    "figure": "results\\case_studies\\case_3869685_211.png"
+  },
+  {
+    "match_id": 3869685,
+    "possession": 228,
+    "title": "World Cup 2022 final: sustained build-up",
+    "note": "Argentina vs France. A long possession that worked the ball into the box. Toggle the pitch-control surface to see the space the attack created.",
+    "figure": "results\\case_studies\\case_3869685_228.png"
+  },
+  {
+    "match_id": 3943043,
+    "possession": 120,
+    "title": "Euro 2024 final: sustained build-up",
+    "note": "Spain vs England. A long possession that worked the ball into the box. Toggle the pitch-control surface to see the space the attack created.",
+    "figure": "results\\case_studies\\case_3943043_120.png"
+  },
+  {
+    "match_id": 3795506,
+    "possession": 23,
+    "title": "Euro 2020 final: sustained build-up",
+    "note": "Italy vs England. A long possession that worked the ball into the box. Toggle the pitch-control surface to see the space the attack created.",
+    "figure": "results\\case_studies\\case_3795506_23.png"
+  },
+  {
+    "match_id": 3847567,
+    "possession": 102,
+    "title": "Women's Euro 2022 final: sustained build-up",
+    "note": "England Women's vs Germany Women's. A long possession that worked the ball into the box. Toggle the pitch-control surface to see the space the attack created.",
+    "figure": "results\\case_studies\\case_3847567_102.png"
+  },
+  {
+    "match_id": 3906390,
+    "possession": 90,
+    "title": "Women's World Cup 2023 final: sustained build-up",
+    "note": "Spain Women's vs England Women's. A long possession that worked the ball into the box. Toggle the pitch-control surface to see the space the attack created.",
+    "figure": "results\\case_studies\\case_3906390_90.png"
+  },
+  {
+    "match_id": 3895074,
+    "possession": 62,
+    "title": "Leverkusen vs Bayern 2023/24: the counter that came off",
+    "note": "Bayern Munich vs Bayer Leverkusen, 2023-09-15. The highest-threat successful counter-attack of the final. Watch the receiver rings: who the model expects the ball to find next.",
+    "figure": "results\\case_studies\\case_3895074_62.png"
+  },
+  {
+    "match_id": 3895074,
+    "possession": 147,
+    "title": "Leverkusen vs Bayern 2023/24: sustained build-up",
+    "note": "Bayern Munich vs Bayer Leverkusen. A long possession that worked the ball into the box. Toggle the pitch-control surface to see the space the attack created.",
+    "figure": "results\\case_studies\\case_3895074_147.png"
+  }
+]

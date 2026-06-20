@@ -1,0 +1,37 @@
+﻿# Default transformer config (CLAUDE.md Â§5.3, Â§6). One YAML per run.
+seed: 42
+
+model:
+  name: transformer
+  num_layers: 3          # encoder layers
+  num_heads: 4
+  hidden_dim: 128
+  dropout: 0.1
+  use_cls_token: true
+  use_velocity_tokens: true   # ablation toggle (Â§7.3)
+
+heads:
+  success: true
+  xt: true
+  run: true
+
+loss:
+  w_success: 1.0
+  w_xt: 1.0
+  w_run: 1.0
+  adaptive_reweight: false  # see gnn_default.yaml
+
+train:
+  optimizer: adamw
+  lr: 1.0e-4
+  weight_decay: 1.0e-4
+  # NOTE: 4 GB VRAM (RTX 3050 Laptop). Drop batch_size if the transformer OOMs.
+  batch_size: 32
+  max_epochs: 50
+  scheduler: cosine
+  early_stopping_patience: 7
+
+logging:
+  backend: tensorboard
+  run_name: transformer_default
+

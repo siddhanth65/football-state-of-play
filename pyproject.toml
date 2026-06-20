@@ -1,0 +1,83 @@
+[project]
+name = "football-state-of-play"
+version = "0.1.0"
+description = "Modelling state of play and attacker instinct in attacking-third football possessions."
+authors = [{ name = "Sid" }]
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.11"
+dependencies = [
+    "torch>=2.2",
+    # Cap <2.6: torch-geometric 2.6+ eagerly imports its `.llm` stack at top level,
+    # which access-violates on Windows (Python 3.11) and breaks every entry point.
+    "torch-geometric>=2.5,<2.6",
+    "statsbombpy>=1.13",
+    "socceraction>=1.5",
+    "mplsoccer>=1.2",
+    "kloppy>=3.16",
+    "pandas",
+    "numpy",
+    "scikit-learn",
+    "xgboost",
+    "streamlit>=1.30",
+    "matplotlib",
+    "seaborn",
+    "pyyaml",
+    "tqdm",
+    "pyarrow",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "ipykernel", "nbformat"]
+logging = ["wandb"]
+
+# ---------------------------------------------------------------------------
+# uv configuration
+# ---------------------------------------------------------------------------
+# This is an application (not a distributable package): we install the
+# dependencies into a virtualenv but do not build the project itself. The
+# top-level packages (data/, models/, ...) are imported via the repo root.
+[tool.uv]
+package = false
+
+# Pull torch from the CUDA 12.4 wheel index so we get GPU builds on Windows.
+# The RTX 3050 Laptop GPU (driver 610.47) supports CUDA 12.x. If you are on a
+# CPU-only machine, delete the [tool.uv.sources] block below and re-sync.
+[tool.uv.sources]
+torch = [{ index = "pytorch-cu124" }]
+
+[[tool.uv.index]]
+name = "pytorch-cu124"
+url = "https://download.pytorch.org/whl/cu124"
+explicit = true
+
+# ---------------------------------------------------------------------------
+# Tooling
+# ---------------------------------------------------------------------------
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+# E/F = pyflakes+pycodestyle, I = isort, UP = pyupgrade, B = bugbear,
+# D = pydocstyle (Google style), NPY = numpy-specific.
+select = ["E", "F", "I", "UP", "B", "D", "NPY"]
+ignore = [
+    "D100", # missing docstring in public module
+    "D104", # missing docstring in public package
+    "D107", # missing docstring in __init__
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["D"]
+"notebooks/*" = ["D", "E402"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "network: integration tests that hit the StatsBomb API over the network (deselected by default; run with -m network)",
+]
+addopts = "-m 'not network'"

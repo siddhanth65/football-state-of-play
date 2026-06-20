@@ -1,0 +1,44 @@
+# --- Project data & artifacts (large / regenerable) ---
+data/raw/
+data/processed/*
+!data/processed/.gitkeep
+# The split is part of the experimental record (CLAUDE.md §6) — committed.
+!data/processed/splits.json
+results/checkpoints/
+app/assets/*.parquet
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+.env
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# --- uv ---
+# uv.lock IS committed (reproducibility). The cache is not.
+.uv/
+
+# --- Notebooks ---
+.ipynb_checkpoints/
+
+# --- Tooling / IDE ---
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+.vscode/
+.idea/
+
+# --- Experiment logging ---
+wandb/
+runs/
+lightning_logs/
+*.log
+
+# --- OS ---
+.DS_Store
+Thumbs.db

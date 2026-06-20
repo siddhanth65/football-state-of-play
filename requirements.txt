@@ -1,0 +1,29 @@
+# pip fallback for environments without uv. Prefer `uv sync` (see README).
+#
+# NOTE: this installs CPU torch by default. For the CUDA 12.4 build used on the
+# training laptop, install torch first from the PyTorch index, e.g.:
+#   pip install torch>=2.2 --index-url https://download.pytorch.org/whl/cu124
+# then `pip install -r requirements.txt`.
+
+torch>=2.2
+torch-geometric>=2.5
+statsbombpy>=1.13
+socceraction>=1.5
+mplsoccer>=1.2
+kloppy>=3.16
+pandas
+numpy
+scikit-learn
+xgboost
+streamlit>=1.30
+matplotlib
+seaborn
+pyyaml
+tqdm
+pyarrow
+
+# dev
+pytest
+ruff
+ipykernel
+nbformat

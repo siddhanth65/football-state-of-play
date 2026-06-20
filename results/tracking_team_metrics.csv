@@ -1,0 +1,7 @@
+team,n_attack,attack_success,attack_dxt,option_richness,n_defend,solidity,press_decisiveness,lane_suppression,line_height
+metrica1_Home,65,0.409,0.0211,2.2929,175,0.6012,0.1246,0.0774,82.6708
+metrica1_Away,175,0.3988,0.0201,2.3314,65,0.591,0.1229,0.0728,86.3989
+metrica2_Home,169,0.3216,0.0161,2.3105,71,0.5562,0.1386,0.0815,74.3218
+metrica2_Away,71,0.4438,0.023,2.2554,169,0.6784,0.1258,0.0649,85.37
+metrica3_Home,193,0.4089,0.0203,1.0804,47,0.5835,0.1459,0.0774,78.1166
+metrica3_Away,47,0.4165,0.0221,2.2372,193,0.5911,0.0678,0.079,84.5783

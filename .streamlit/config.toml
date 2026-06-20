@@ -1,0 +1,11 @@
+# Dashboard theme: warm "golden-hour" palette — parchment base, terracotta accent.
+[theme]
+base = "light"
+primaryColor = "#b5653b"
+backgroundColor = "#f3ede1"
+secondaryBackgroundColor = "#fbf7ee"
+textColor = "#3a352c"
+font = "sans serif"
+
+[browser]
+gatherUsageStats = false
